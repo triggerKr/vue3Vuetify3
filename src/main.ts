@@ -5,10 +5,9 @@ import vuetify from './plugins/vuetify'
 import router from './plugins/router'
 import pinia from './store'
 import { loadFonts } from './plugins/webfontloader'
-//import '@mdi/font/css/materialdesignicons.css'
 import { LoadingPlugin } from 'vue-loading-overlay';
 
-//import 'ag-grid-community/styles/ag-grid.css'; // 이거 넣으면 에러남
+
 import 'ag-grid-community/styles/ag-theme-alpine.css'; // 테마 중 하나
 
 await loadFonts()
