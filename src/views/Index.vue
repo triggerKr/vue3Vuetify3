@@ -2,6 +2,7 @@
   <div ref="loadingContainer" class="loading-area">
     <MessageDisplay :message="message" />
     <TabMenu v-model="tab" />
+    <AgTest />
     <component :is="currentTabComponent" />
 
     <!-- 수동으로 로딩 오버레이 표시 -->
@@ -24,6 +25,9 @@ import ReworkTab from '@/components/tabs/ReworkTab.vue'
 import Contents1Tab from '@/components/tabs/Contents1Tab.vue'
 import Contents2Tab from '@/components/tabs/Contents2Tab.vue'
 import EquipTab from '@/components/tabs/EquipTab.vue'
+import AgTest from '@/components/AgTest.vue';
+
+
 
 
 // import { useLoading } from 'vue-loading-overlay'
@@ -83,7 +87,7 @@ onMounted(async () => {
 //isLoading.value = true;
 // debugger;
 // loading.show()
-    showLoadingOverlay()
+    //showLoadingOverlay()
     const response = await api.get<any>('/hello')
     message.value = response.data.message
   } catch (error) {
@@ -92,6 +96,10 @@ onMounted(async () => {
     //hideLoadingOverlay()
   }
 })
+
+
+
+
 </script>
 <style scoped>
 .loading-wrapper {
