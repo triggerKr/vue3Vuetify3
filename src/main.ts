@@ -8,7 +8,7 @@ import { loadFonts } from './plugins/webfontloader'
 //import '@mdi/font/css/materialdesignicons.css'
 import { LoadingPlugin } from 'vue-loading-overlay';
 
-import 'ag-grid-community/styles/ag-grid.css'; // 필수
+//import 'ag-grid-community/styles/ag-grid.css'; // 필수
 import 'ag-grid-community/styles/ag-theme-alpine.css'; // 테마 중 하나
 
 await loadFonts()
