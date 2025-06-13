@@ -1,0 +1,8 @@
+// $font: 'Plus Jakarta Sans', 'Inter', 'Sans serif';
+$body-font-family: 'Plus Jakarta Sans', 'Inter', 'Sans serif';
+// 이것도 에러.
+// @use 'vuetify/styles' with (
+//   $body-font-family: $font
+// )
+
+@import 'vuetify/styles';
