@@ -4,7 +4,6 @@
     <TabMenu v-model="tab" />
     <AgComponet />
     <component :is="currentTabComponent" />
-
   </div>
 </template>
 
@@ -38,7 +37,6 @@ const currentTabComponent = computed(() => {
   }
 })
  
-
 
 onMounted(async () => {
 

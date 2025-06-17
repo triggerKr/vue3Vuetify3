@@ -3,14 +3,18 @@
   <h2>AG Grid</h2>
   <div style="flex: 1 1 auto; width: 100%;">
     <AgGridVue
+      ref="agGrid"
+      :rowSelection="'multiple'"
       class="ag-grid"
       :rowData="rowData"
       :columnDefs="columnDefs"
       :defaultColDef="defaultColDef"
       :animateRows="true"
       :domLayout="'normal'"
+      @grid-ready="onGridReady"
     />
   </div>
+  <v-btn style="margin-top: 10px;" @click="test">클릭</v-btn>
 </v-container>
 </template>
 
@@ -21,14 +25,30 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 import { ref ,onMounted} from 'vue';
 import { AgGridVue } from 'ag-grid-vue3';
 import type { ColDef } from 'ag-grid-community';
+import type { GridReadyEvent } from 'ag-grid-community';
+type GridApi = /*unresolved*/ any
+type ColumnApi = /*unresolved*/ any
+type GridReadyParams = {
+  api: GridApi;
+  columnApi: ColumnApi;
+};
+const agGrid = ref<InstanceType<any> | null>(null); // ✅ AgGridVue에 연결
+const gridApi = ref<GridApi | null>(null);
+const columnApi = ref<ColumnApi | null>(null);
 
-// 그리드가 마운트되고 나서 컬럼 사이즈 조절
-// const agGrid = ref(null);
-// onMounted(() => {
-//   if (agGrid.value && agGrid.value.api) {
-//     agGrid.value.api.sizeColumnsToFit();
-//   }
-// });
+const onGridReady = (params: GridReadyParams) => {
+  gridApi.value = params.api;
+  columnApi.value = params.columnApi;
+};
+const test = () => {
+
+  if (gridApi.value) {
+    const selectedRows = gridApi.value.getSelectedRows();
+    console.log('선택된 행:', selectedRows);
+  } else {
+    console.error('Grid API가 초기화되지 않았습니다.');
+  }
+};
 
 defineOptions({
   components: { AgGridVue }
@@ -65,7 +85,11 @@ const rowData = ref([
 ]);
 
 const columnDefs = ref<ColDef[]>([
-  { field: 'make', flex: 2 },    // 2 비율로 너비 차지
+  { headerCheckboxSelection: true,   // 헤더에 전체 선택 체크박스
+    checkboxSelection: true,        // 각 row에 체크박스
+    field: 'make',
+    flex: 2
+  },
   { field: 'model', flex: 3 },   // 3 비율
   { field: 'price', flex: 1 },   // 1 비율
 ]);
