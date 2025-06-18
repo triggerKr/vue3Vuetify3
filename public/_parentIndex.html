@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>부모 창입니다</h1>
+
+  <iframe id="myFrame" src="http://localhost:8080/" width="100%" height="100%"></iframe>
+
+  <button onclick="goToPage('home')">Home</button>
+  <button onclick="goToPage('about')">About</button>
+  <button onclick="goToPage('contact')">Contact</button>
+
+  <script>
+    function goToPage(pageName) {
+        
+      const iframe = document.getElementById('myFrame');
+
+      // JSON payload
+      const message = {
+        type: 'navigate',
+        page: pageName
+      };
+
+      // postMessage 보냄
+      iframe.contentWindow.postMessage(message, 'http://localhost:8080/'); // origin 꼭 지정!
+    }
+
+window.addEventListener('message', (event) => {
+  // 보안 체크 (자식 origin)
+  if (event.origin !== 'http://localhost:8080') return;
+debugger;
+  const data = event.data;
+  if (data.type === 'form-submitted') {
+    console.log('자식으로부터 데이터 수신:', data);
+    // 예: 데이터 사용
+    alert(`이름: ${data.name}, 나이: ${data.age}`);
+  }
+});    
+  </script>
+</body>
+</html>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #myFrame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
