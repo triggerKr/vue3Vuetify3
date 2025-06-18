@@ -56,15 +56,19 @@ debugger;
         // 페이지 전환 시뮬레이션
         switch (page) {
           case 'home':
+            if( app)
             app.innerText = '🏠 Home 페이지입니다';
             break;
           case 'about':
+            if( app)
             app.innerText = 'ℹ️ About 페이지입니다';
             break;
           case 'contact':
+            if( app)
             app.innerText = '📞 Contact 페이지입니다';
             break;
           default:
+            if( app)
             app.innerText = '❓ 알 수 없는 페이지';
         }
       }
