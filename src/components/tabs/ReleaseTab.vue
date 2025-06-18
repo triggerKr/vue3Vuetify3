@@ -28,5 +28,45 @@ const openDialog = () => {
 function handleSelectedItems(selected:any) {
   debugger;
   console.log('선택된 항목들:', selected)
+
+// 자식 페이지에서 예: Vue 컴포넌트 또는 plain JS에서도 가능
+const payload = {
+  type: 'form-submitted',
+  name: '태원님',
+  age: 45
+};
+
+// 부모에게 postMessage 전송
+window.parent.postMessage(payload, 'http://127.0.0.1:2001'); // 부모 origin 명시
+
 }
+
+
+    // 메시지 수신 처리
+    window.addEventListener('message', (event) => {
+      // 보안: 부모의 origin을 반드시 확인
+      if (event.origin !== 'http://127.0.0.1:2001') return;
+debugger;
+      const data = event.data;
+
+      if (data.type === 'navigate') {
+        const page = data.page;
+        const app = document.getElementById('app');
+
+        // 페이지 전환 시뮬레이션
+        switch (page) {
+          case 'home':
+            app.innerText = '🏠 Home 페이지입니다';
+            break;
+          case 'about':
+            app.innerText = 'ℹ️ About 페이지입니다';
+            break;
+          case 'contact':
+            app.innerText = '📞 Contact 페이지입니다';
+            break;
+          default:
+            app.innerText = '❓ 알 수 없는 페이지';
+        }
+      }
+    });
 </script>
