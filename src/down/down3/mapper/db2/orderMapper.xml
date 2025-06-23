@@ -1,0 +1,5 @@
+<mapper namespace="com.example.db2.mapper.OrderMapper">
+    <select id="findById" resultType="com.example.domain.Order">
+        SELECT * FROM ORDERS WHERE ID = #{id}
+    </select>
+</mapper>

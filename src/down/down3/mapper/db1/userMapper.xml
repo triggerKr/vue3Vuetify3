@@ -1,0 +1,5 @@
+<mapper namespace="com.example.db1.mapper.UserMapper">
+    <select id="findById" resultType="com.example.domain.User">
+        SELECT * FROM USERS WHERE ID = #{id}
+    </select>
+</mapper>
