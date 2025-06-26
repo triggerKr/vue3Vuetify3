@@ -86,7 +86,10 @@ const rowData = ref([
 
 const columnDefs = ref<ColDef[]>([
   { headerCheckboxSelection: true,   // 헤더에 전체 선택 체크박스
-    checkboxSelection: true,        // 각 row에 체크박스
+    checkboxSelection: (params) => {
+      // 예: make가 'Ford'인 행은 체크박스 제거 (disabled처럼)
+      return params.data.make !== 'Ford';
+    },
     field: 'make',
     flex: 2
   },
@@ -102,9 +105,20 @@ const defaultColDef: ColDef = {
 };
 </script>
 
-<style scoped>
+<style>
 .ag-grid {
   height: 100%;
   width: 100%;
+}
+/* 헤더 전체 배경색 */
+.ag-theme-alpine .ag-header {
+  background-color: #0052cc; /* 원하는 색상으로 변경 */
+  color: white; /* 글자색도 바꾸려면 */
+}
+
+/* 헤더 개별 셀 배경색 (선택적) */
+.ag-theme-alpine .ag-header-cell {
+  background-color: #0052cc;
+  color: white;
 }
 </style>
