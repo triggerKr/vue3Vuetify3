@@ -59,7 +59,7 @@ const defaultColDef: ColDef = {
   resizable: true
 }
 
-const selectedRows = ref([])
+const selectedRows = ref<any[]>([])
 
 const onSelectedRows = (rows: any[]) => {
   debugger;
@@ -76,6 +76,7 @@ onMounted(() => {
 })
 
 import PopupDialog from '@/components/PopupDialog.vue'
+import { ColDef } from 'ag-grid-community'
 
 const showPopup = ref(false)
 
