@@ -1,8 +1,12 @@
 <template>
-   <v-btn @click="showDialog = true">항목 선택 팝업</v-btn>
+  fadsffsdfsda
+  fadsffsdfsda
+  fadsffsdfsda
+   <v-btn @click="showDialog = true">d항목 선택 팝업</v-btn>
   <WaferDialog v-model="showDialog" 
    @select="handleSelectedItems"
   />
+  
   <v-card color="basil" flat>
     <v-card-text>{{ content }}</v-card-text>
     <!-- 여기서 더 복잡한 로직과 UI 구성 -->
