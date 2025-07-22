@@ -7,7 +7,7 @@ import pinia from './store'
 import { loadFonts } from './plugins/webfontloader'
 import { LoadingPlugin } from 'vue-loading-overlay';
 
-
+//import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-alpine.css'; // 테마 중 하나
 
 await loadFonts()

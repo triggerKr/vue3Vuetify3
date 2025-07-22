@@ -1,12 +1,26 @@
 <template>
-  fadsffsdfsda
-  fadsffsdfsda
-  fadsffsdfsda
    <v-btn @click="showDialog = true">d항목 선택 팝업</v-btn>
   <WaferDialog v-model="showDialog" 
    @select="handleSelectedItems"
   />
-  
+   <v-btn @click="showDialog = true">항목 선택 팝업</v-btn>
+  <WaferDialog v-model="showDialog" @select="handleSelectedItems"/>
+
+  <v-container>
+    <v-btn color="primary" @click="showPopup = true">팝업 열기</v-btn>
+    <PopupDialog v-model="showPopup" @confirmed="onConfirmed" />
+  </v-container>
+
+  <v-container>
+    <v-btn color="primary" @click="showAGDialog = true">AG Grid 팝업 열기</v-btn>
+    <PopupGridDialog     
+      v-model="showAGDialog"
+      :rowData="rowData"
+      :columnDefs="columnDefs"
+      :defaultColDef="defaultColDef"
+      @select="onSelectedRows"
+    />
+  </v-container>
   <v-card color="basil" flat>
     <v-card-text>{{ content }}</v-card-text>
     <!-- 여기서 더 복잡한 로직과 UI 구성 -->
@@ -16,6 +30,43 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import WaferDialog from '@/components/WaferDialog.vue'
+import PopupGridDialog from '@/components/PopupGridDialog.vue'
+
+const showAGDialog = ref(false)
+const rowData = [
+  { make: 'Toyota', model: 'Celica', price: 35000 },
+  { make: 'Ford', model: 'Mondeo', price: 32000 },
+  { make: 'Porsche', model: 'Boxter', price: 72000 }
+]
+
+const columnDefs: ColDef[] = [
+  {
+    headerCheckboxSelection: true,
+    checkboxSelection: (params) => {
+      // 예: make가 'Ford'인 행은 체크박스 제거 (disabled처럼)
+      return params.data.make !== 'Ford';
+    },
+    field: 'make',
+    flex: 2
+  },
+  { field: 'model', flex: 3 },
+  { field: 'price', flex: 1 }
+]
+
+const defaultColDef: ColDef = {
+  sortable: true,
+  filter: true,
+  resizable: true
+}
+
+const selectedRows = ref([])
+
+const onSelectedRows = (rows: any[]) => {
+  debugger;
+  selectedRows.value = rows
+  console.log('부모에서 받은 선택된 항목:', rows)
+}
+
 
 const content = ref('Release 탭 정보 불러오는 중...')
 
@@ -24,6 +75,13 @@ onMounted(() => {
   content.value = 'Release 탭의 내용입니다.'
 })
 
+import PopupDialog from '@/components/PopupDialog.vue'
+
+const showPopup = ref(false)
+
+function onConfirmed() {
+  alert("확인 버튼 클릭됨!")
+}
 
 const showDialog = ref(false)
 const openDialog = () => {
