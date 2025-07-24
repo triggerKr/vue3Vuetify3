@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, defineEmits, defineProps, nextTick } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import { AgGridVue } from 'ag-grid-vue3'
 import type { ColDef, GridApi, ColumnApi } from 'ag-grid-community'
 

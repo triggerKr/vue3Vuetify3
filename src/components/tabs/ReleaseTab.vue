@@ -17,10 +17,13 @@
       @select="onSelectedRows"
     />
   </v-container>
-
+   <v-text-field variant="plain" 
+    :readonly="true"
+    placeholder="LOT ID"
+    hide-details
+    v-model="name" />
   <v-card color="basil" flat>
-    <v-card-text>{{ content }}</v-card-text>
-    <!-- 여기서 더 복잡한 로직과 UI 구성 -->
+    <v-card-text>{{ content }}XXX</v-card-text>
   </v-card>
 </template>
 
@@ -29,6 +32,13 @@ import { ref, onMounted } from 'vue'
 import WaferDialog from '@/components/WaferDialog.vue'
 import PopupGridDialog from '@/components/PopupGridDialog.vue'
 
+const name = ref('태원');
+name.value= '태원님';
+for( let i = 0; i < 100; i++) {
+  setTimeout(() => {
+    name.value += '님';
+  }, i * 1000); 
+}
 const showAGDialog = ref(false)
 const rowData = [
   { make: 'Toyota', model: 'Celica', price: 35000 },
@@ -74,6 +84,7 @@ onMounted(() => {
 
 import PopupDialog from '@/components/PopupDialog.vue'
 import { ColDef } from 'ag-grid-community'
+import { set } from 'lodash';
 
 const showPopup = ref(false)
 
