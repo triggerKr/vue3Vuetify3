@@ -10,6 +10,9 @@
     "test": "vue add router"
   },
   "dependencies": {
+    "@ag-grid-community/client-side-row-model": "^32.3.9",
+    "@ag-grid-community/core": "^32.3.9",
+    "@ag-grid-community/vue3": "^32.3.9",
     "@mdi/font": "^5.9.55",
     "ag-grid-community": "^33.3.2",
     "ag-grid-vue3": "^33.3.2",

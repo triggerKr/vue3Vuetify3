@@ -2,7 +2,7 @@
   <div ref="loadingContainer" class="loading-area">
     <MessageDisplay :message="message" />
     <TabMenu v-model="tab" />
-    <AgComponet />
+    <!-- <AgComponet /> -->
     <component :is="currentTabComponent" />
   </div>
 </template>
@@ -19,7 +19,7 @@ import Contents2Tab from '@/components/tabs/Contents2Tab.vue'
 import EquipTab from '@/components/tabs/EquipTab.vue'
 
 // AG Grid 컴포넌트 임포트
-import AgComponet from '@/components/AgComponent.vue';
+// import AgComponet from '@/components/AgComponent.vue';
 
 
 const message = ref('안녕하세요?')

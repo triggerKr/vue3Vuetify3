@@ -11,7 +11,7 @@ export default defineConfig({
   ],
     resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src') // ✅ '@'를 'src'로 매핑
+      '@': path.resolve(__dirname, 'src') // '@'를 'src'로 매핑
     }
   },
   server: {
@@ -21,7 +21,10 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
-    }
+    },
+    port: 3000, // 개발 서버 포트
+    host: 'localhost', // 호스트 이름
+    strictPort: true // 지정된 포트가 사용 중이면 오류 발생
   }
   ,  build: {
     target: 'esnext', // 또는 'es2022'
