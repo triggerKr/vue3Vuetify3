@@ -17,6 +17,7 @@
     "ag-grid-community": "^33.3.2",
     "ag-grid-vue3": "^33.3.2",
     "axios": "^1.9.0",
+    "crypto-js": "^4.2.0",
     "lodash": "^4.17.21",
     "pinia": "^2.0.16",
     "roboto-fontface": "*",

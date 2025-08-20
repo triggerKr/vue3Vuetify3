@@ -32,13 +32,16 @@ type GridReadyParams = {
   api: GridApi;
   columnApi: ColumnApi;
 };
-const agGrid = ref<InstanceType<any> | null>(null); // ✅ AgGridVue에 연결
+const agGrid = ref<InstanceType<any> | null>(null);
 const gridApi = ref<GridApi | null>(null);
 const columnApi = ref<ColumnApi | null>(null);
 
 const onGridReady = (params: GridReadyParams) => {
+debugger;
+  if (!agGrid.value) {  
   gridApi.value = params.api;
   columnApi.value = params.columnApi;
+  }
 };
 const test = () => {
 
@@ -101,8 +104,8 @@ const defaultColDef: ColDef = {
   sortable: true,
   filter: true,
   resizable: true,
-  flex: 1,  // ★ flex 추가
-};
+  flex: 1 
+}
 </script>
 
 <style>

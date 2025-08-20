@@ -26,4 +26,7 @@ export default defineConfig({
     host: 'localhost', // 호스트 이름
     strictPort: true // 지정된 포트가 사용 중이면 오류 발생
   }
+  ,  build: {
+    target: 'esnext', // 또는 'es2022'
+  }
 })

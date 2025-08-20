@@ -1,4 +1,8 @@
 <template>
+   <v-btn @click="showDialog = true">d항목 선택 팝업</v-btn>
+  <WaferDialog v-model="showDialog" 
+   @select="handleSelectedItems"
+  />
    <v-btn @click="showDialog = true">항목 선택 팝업</v-btn>
   <WaferDialog v-model="showDialog" @select="handleSelectedItems"/>
 
