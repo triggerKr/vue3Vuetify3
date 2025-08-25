@@ -1,11 +1,11 @@
 <template>
   <div style="padding: 20px;">
-    <h3>📊 AG-Grid Vue 3 + `gridOptions` 통합 예시 (체크박스 및 로우 클릭 해결)</h3>
+    <h3>AG-Grid Vue 3 + `gridOptions` 통합 예시 (체크박스 및 로우 클릭 해결)</h3>
     <p>체크박스 선택만 작동하도록 로우 클릭 선택 동작을 비활성화했습니다.</p>
 
     <ag-grid-vue
       style="width: 100%; height: 500px;"
-      class="ag-theme-alpine"
+      class="ag-theme-alpine custom-ag-grid-style"
       :gridOptions="gridOptions"
       :rowData="rowData"
       @grid-ready="onGridReady"
@@ -66,7 +66,6 @@ const gridOptions = ref<GridOptions>({
       headerCheckboxSelection: true,
       minWidth: 50,
       maxWidth: 50,
-      suppressMenu: true,
       pinned: 'left',
       resizable: false,
       filter: false,
@@ -120,4 +119,43 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* ag-theme-alpine 클래스와 함께 custom-ag-grid-style 클래스를 사용합니다. */
+.ag-theme-alpine.custom-ag-grid-style {
+  /*
+    전반적인 그리드 배경색, 테두리, 헤더 배경색 변경
+    AG-Grid 33+ 버전의 테마 API는 CSS 변수를 통해 스타일링을 권장합니다.
+    (사용 중인 theme: "legacy" 설정은 기존 CSS 임포트 방식을 유지하므로 이 방법이 적합합니다)
+  */
+  --ag-background-color: #f8f8f8; /* 그리드 전체 배경색 (아주 연한 회색) */
+  --ag-border-color: red;         /*  그리드 테두리 색상 */
+  --ag-header-background-color: #e0f2f7; /* 헤더 배경색 (연한 하늘색 계열) */
+  --ag-odd-row-background-color: #fcfcfc; /* 홀수 행 배경색 */
+  --ag-even-row-background-color: #ffffff; /* 짝수 행 배경색 */
+
+  /* 선택된 로우 색상 변경 */
+  /* .ag-row-selected 클래스는 선택된 행에 적용됩니다. */
+  /* 특정 테마 내에서 오버라이드할 때, 우선순위를 위해 상위 셀렉터를 사용하거나 !important를 사용할 수 있습니다. */
+  /* AG-Grid 테마의 변수를 사용하는 것이 더 좋습니다: */
+  --ag-selected-row-background-color: #e0f0e0; /* 선택된 로우 배경색 (연한 녹색 계열) */
+  --ag-row-hover-color: #e8e8f8; /* 마우스 오버 시 로우 배경색 (연한 보라색 계열) */
+
+  /* 만약 위의 CSS 변수가 적용되지 않는다면, 아래와 같이 직접 클래스를 타겟팅할 수 있습니다. */
+  /* 그러나 일반적으로 CSS 변수를 사용하는 것이 권장됩니다. */
+  /*
+  .ag-row.ag-row-selected {
+    background-color: #e0f0e0 !important;
+  }
+  .ag-row.ag-row-hover {
+    background-color: #e8e8f8 !important;
+  }
+  */
+}
+
+/* 추가적으로, 특정 요소의 폰트 크기나 색상 등을 변경하고 싶다면, AG-Grid 문서의 CSS 레퍼런스를 참고하시면 좋습니다. */
+/* 예시: 모든 셀의 텍스트 색상을 변경하고 싶을 때 */
+/*
+.ag-theme-alpine.custom-ag-grid-style .ag-cell {
+  color: #333;
+}
+*/
 </style>
