@@ -60,7 +60,7 @@ const onGridReady = (params) => {
 };
 
 const getRowHeight = (params) => {
-  return 50; // 기본 높이 설정
+  return 80; // 기본 높이 설정
   // return 28 * (Math.floor(params.data.model.length / 60) + 1);
 };
 

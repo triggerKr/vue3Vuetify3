@@ -4,13 +4,13 @@ import 'vuetify/styles'
 import vuetify from './plugins/vuetify'
 import router from './plugins/router'
 import pinia from './store'
-//import { loadFonts } from './plugins/webfontloader'
+
 import { LoadingPlugin } from 'vue-loading-overlay';
 
-//import 'ag-grid-community/styles/ag-grid.css'
-//import 'ag-grid-community/styles/ag-theme-alpine.css'; // 테마 중 하나
-
-//await loadFonts()
+// AG-Grid 모듈 등록 (추가!)
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+// 이 코드를 main.ts에 두면 AG-Grid를 사용하는 모든 컴포넌트에서 문제가 발생하지 않습니다.
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 createApp(App)
   .use(router)
