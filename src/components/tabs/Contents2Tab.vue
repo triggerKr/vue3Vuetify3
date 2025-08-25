@@ -1,109 +1,129 @@
 <template>
-  <v-container fluid>
-    <!-- 제목 -->
-    <v-card class="ma-4 pa-4">
-      <v-card-title>
-        사용자 관리
-      </v-card-title>
+  <div style="padding: 20px;">
+    <h3>📊 AG-Grid Vue 3 + `gridOptions` 통합 예시 (로 클릭 토글 선택)</h3>
+    <p>로우를 클릭하면 해당 로우의 선택 상태가 토글되고, 이전에 선택된 로우는 그대로 유지됩니다.</p>
 
-      <!-- 조회조건 -->
-      <v-card class="pa-4 mb-4" variant="outlined">
-        <v-row dense>
-          <v-col cols="3">
-            <v-text-field
-              v-model="search.name"
-              label="이름"
-              variant="outlined"
-              density="compact"
-              clearable
-            />
-          </v-col>
-          <v-col cols="3">
-            <v-text-field
-              v-model="search.age"
-              label="나이"
-              type="number"
-              variant="outlined"
-              density="compact"
-              clearable
-            />
-          </v-col>
-          <v-col cols="3" class="d-flex align-center">
-            <v-btn color="primary" @click="doSearch">조회</v-btn>
-          </v-col>
-        </v-row>
-      </v-card>
-
-      <!-- 리스트 (AG Grid) -->
-      <v-card class="pa-2">
-        <div class="ag-theme-alpine" style="height: 400px; width: 100%;">
-          <AgGridVue
-            :columnDefs="columnDefs"
-            :rowData="rowData"
-            :defaultColDef="defaultColDef"
-            :pagination="true"
-            :paginationPageSize="10"
-            :animateRows="true"
-            @grid-ready="onGridReady"
-          />
-        </div>
-      </v-card>
-    </v-card>
-  </v-container>
+    <ag-grid-vue
+      style="width: 100%; height: 500px;"
+      class="ag-theme-alpine"
+      :gridOptions="gridOptions"
+      :rowData="rowData.value"
+      @grid-ready="onGridReady"
+    >
+    </ag-grid-vue>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { AgGridVue } from "ag-grid-vue3";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
+import { ref, onMounted } from 'vue';
+import { AgGridVue } from 'ag-grid-vue3';
 
-// 조회조건
-const search = ref({
-  name: "",
-  age: "",
-});
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 
-// 컬럼 정의
-const columnDefs = ref([
-  { headerName: "ID", field: "id", width: 90 },
-  { headerName: "이름", field: "name", flex: 1 },
-  { headerName: "나이", field: "age", width: 100, filter: "agNumberColumnFilter" },
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+import type { GridOptions } from 'ag-grid-community';
+
+// AG-Grid 모듈 등록은 main.ts에서 처리한다고 가정합니다.
+
+// --- 데이터 및 타입 정의 ---
+interface Car {
+  make: string;
+  model: string;
+  price: number;
+}
+
+const rowData = ref<Car[]>([
+  { make: 'Tesla', model: 'Model Y', price: 64950 },
+  { make: 'Ford', model: 'F-Series', price: 33850 },
+  { make: 'Toyota', model: 'Corolla', price: 29600 },
+  { make: 'Porsche', model: 'Boxter', price: 72000 },
+  { make: 'Toyota', model: 'Celica', price: 35000 },
+  { make: 'Nissan', model: 'GTR', price: 113540 },
+  { make: 'BMW', model: 'M3', price: 69900 },
+  { make: 'Mercedes', model: 'C-Class', price: 41400 },
+  { make: 'Audi', model: 'A4', price: 39100 },
+  { make: 'Hyundai', model: 'Sonata', price: 24000 },
+  { make: 'Kia', model: 'K5', price: 25000 },
+  { make: 'Chevrolet', model: 'Malibu', price: 23000 },
+  { make: 'Tesla', model: 'Model S', price: 80000 },
+  { make: 'Ford', model: 'Mustang', price: 30000 },
+  { make: 'Toyota', model: 'Camry', price: 28000 },
+  { make: 'Porsche', model: '911', price: 100000 },
+  { make: 'Honda', model: 'Civic', price: 22000 },
 ]);
 
-// 기본 컬럼 속성
-const defaultColDef = {
-  resizable: true,
-  sortable: true,
-  filter: true,
-  minWidth: 100,
-};
+// --- gridOptions 정의 ---
+const gridOptions = ref<GridOptions>({
+  theme: "legacy",
+  // ✨ 여러 로우를 동시에 선택할 수 있도록 'multiple'로 설정합니다.
+  rowSelection: 'multiple', 
+  // ✨ 로우 클릭 선택을 활성화합니다. (true가 기본값이라 생략 가능하지만 명시적으로 작성)
+  enableClickSelection: true, 
+  // ✨✨ 이 옵션이 핵심입니다! 로우를 단순 클릭 시 선택 상태를 토글(toggle)합니다. ✨✨
+  rowMultiSelectWithClick: true, 
+  
+  columnDefs: [
+    {
+      headerName: '',
+      checkboxSelection: true,        // 체크박스 활성화
+      headerCheckboxSelection: true,  // ✨ 헤더 체크박스 활성화 (다중 선택이므로 필요)
+      minWidth: 50,
+      maxWidth: 50,
+      suppressMenu: true,
+      pinned: 'left',
+      resizable: false,
+      filter: false,
+      sortable: false,
+    },
+    {
+      field: 'make',
+      headerName: '제조사',
+      sortable: true,
+      filter: true,
+      flex: 1
+    },
+    {
+      field: 'model',
+      headerName: '모델',
+      sortable: true,
+      filter: true,
+      flex: 1
+    },
+    {
+      field: 'price',
+      headerName: '가격',
+      sortable: true,
+      filter: true,
+      cellDataType: 'number',
+      valueFormatter: (params: any) => {
+        return params.value ? params.value.toLocaleString() + '원' : '';
+      },
+      flex: 1
+    },
+  ],
 
-// 샘플 데이터
-const allData = [
-  { id: 1, name: "홍길동", age: 25 },
-  { id: 2, name: "이순신", age: 31 },
-  { id: 3, name: "강감찬", age: 42 },
-  { id: 4, name: "을지문덕", age: 37 },
-  { id: 5, name: "세종대왕", age: 53 },
-];
+  animateRows: true,
+});
 
-const rowData = ref([...allData]);
-
-// 조회 기능
-const doSearch = () => {
-  rowData.value = allData.filter((row) => {
-    const matchName = search.value.name
-      ? row.name.includes(search.value.name)
-      : true;
-    const matchAge = search.value.age
-      ? row.age === Number(search.value.age)
-      : true;
-    return matchName && matchAge;
+// --- 그리드 이벤트 핸들러 ---
+const onGridReady = (params: any) => {
+  console.log('AG-Grid가 성공적으로 로드되었습니다! 그리드 API:', params.api);
+  params.api.sizeColumnsToFit();
+  
+  // 선택된 로우를 콘솔에 출력하는 예시
+  params.api.addEventListener('selectionChanged', () => {
+    const selectedRows = params.api.getSelectedRows();
+    console.log('선택된 로우:', selectedRows);
   });
 };
 
-const onGridReady = (params: any) => {
-  console.log("Grid Ready!", params);
-};
+onMounted(() => {
+  console.log('Contents1Tab.vue 컴포넌트가 마운트되었습니다.');
+  console.log('rowData의 현재 값 (onMounted):', rowData.value);
+});
+
 </script>
+
+<style scoped>
+</style>
