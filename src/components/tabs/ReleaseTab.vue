@@ -12,14 +12,21 @@
   </v-container>
 
   <v-container>
-    <v-btn color="primary" @click="showAGDialog = true">AG Grid 팝업 열기</v-btn>
-    <PopupGridDialog     
-      v-model="showAGDialog"
-      :rowData="rowData"
-      :columnDefs="columnDefs"
-      :defaultColDef="defaultColDef"
-      @select="onSelectedRows"
-    />
+    <!-- <template #activator="{ props }">
+      <v-btn color="primary" @click="showAGDialog = true">AG Grid 팝업 열기</v-btn>
+    </template> -->
+    <v-dialog v-model="showAGDialog">
+      <template #activator="{ props }">
+        <v-btn v-bind="props" color="primary">AG GRID 팝업 열기</v-btn>
+      </template>
+      <PopupGridDialog
+        v-model="showAGDialog"
+        :rowData="rowData"
+        :columnDefs="columnDefs"
+        :defaultColDef="defaultColDef"
+        @select="onSelectedRows"
+      />
+    </v-dialog>
   </v-container>
    <v-text-field variant="plain" 
     :readonly="true"
@@ -34,7 +41,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import WaferDialog from '@/components/WaferDialog.vue'
-import PopupGridDialog from '@/components/PopupGridDialog.vue'
+import PopupGridDialog from '@/components/ag-grid/PopupGridDialog.vue'
 
 const name = ref('태원');
 name.value= '태원님';

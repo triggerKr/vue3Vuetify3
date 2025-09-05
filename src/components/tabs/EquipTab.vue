@@ -3,7 +3,7 @@
     <v-card-title>인적 정보 입력</v-card-title>
     <v-card-text style="height: 400px;">
       <!-- 위쪽 폼 -->
-      <div v-for="(row, i) in rows" :key="i" class="mb-3 pa-2 border rounded">
+      <div v-for="(row, i) in rows_" :key="i" class="mb-3 pa-2 border rounded">
         <v-row dense>
           <v-col cols="3" class="d-flex align-center">
             <span class="mr-2 font-bold">이름</span>
@@ -25,13 +25,13 @@
       </div>
       <!-- AG Grid -->
       <div v-if="gridReady" class="ag-theme-alpine" style="height: 80%; width: 100%;border:1px solid #ddd; border-radius: 8px;">
-          
+           
             <AgGridVue
               ref="agGrid"
               :rowSelection="'multiple'"
               class="ag-grid"
               :rowData="commentData"
-              :columnDefs="columnDefs"
+              :columnApi="columnDefs"
               :defaultColDef="defaultColDef"
               :animateRows="true"
               :domLayout="'normal'"
@@ -39,7 +39,6 @@
               :header-height="0"
               :getRowHeight="getRowHeight"
             />
-
       </div>
     </v-card-text>
   </v-card>
@@ -55,8 +54,23 @@ import { AgGridVue } from "ag-grid-vue3";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { MultiLineCellEditor } from '@/components/ag-grid/MultiLineCellEditor';
+
+import AgGridCombobox from '@/components/ag-grid/AgGridCombobox.vue'
+const firstNameValue = ref(null)
+
+const columns = [
+  { field: 'id', headerName: 'ID', width: 80 },
+  { field: 'name', headerName: '이름' },
+  { field: 'email', headerName: '이메일' },
+]
+
+const rows = [
+  { id: 1, name: '홍길동', email: 'gildong@example.com' },
+  { id: 2, name: '김철수', email: 'chulsoo@example.com' },
+  // ...
+]
 const onGridReady = (params) => {
-   params.api.sizeColumnsToFit();
+  params.api.sizeColumnsToFit();
 };
 
 const getRowHeight = (params) => {
@@ -68,7 +82,7 @@ defineOptions({
   components: { AgGridVue }
 });
 // --- 폼 데이터 ---
-const rows = ref([
+const rows_ = ref([
   { name: "홍길동", age: 30, job: "프로그래머", address: "경기도 동탄" },
   { name: "김철수", age: 40, job: "디자이너", address: "서울시 강남" },
 ]);
@@ -95,7 +109,7 @@ const columnDefs = ref([
   // cellEditor: 'agLargeTextCellEditor', // 인라인 편집 가능
   //   cellEditorParams: {
   //       maxLength: 500,      // 최대 글자 수
-  //       rows: 5,             // 기본 높이
+  //       rows_: 5,             // 기본 높이
   //       cols: 50,            // 기본 넓이
   //   },
     autoHeight: true       // 줄 수에 따라 row 높이 자동 조절
