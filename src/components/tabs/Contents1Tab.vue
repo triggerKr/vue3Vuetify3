@@ -18,10 +18,9 @@
 import { ref, onMounted } from 'vue';
 import { AgGridVue } from 'ag-grid-vue3';
 
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
+// import 'ag-grid-community/styles/ag-grid.css';
+// import 'ag-grid-community/styles/ag-theme-alpine.css';
 
-import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import type { GridOptions } from 'ag-grid-community';
 
 // AG-Grid 모듈 등록은 main.ts에서 처리한다고 가정합니다.
@@ -128,7 +127,7 @@ onMounted(() => {
   */
   --ag-background-color: #f8f8f8; /* 그리드 전체 배경색 (아주 연한 회색) */
   --ag-border-color: red;         /*  그리드 테두리 색상 */
-  --ag-header-background-color: #e0f2f7; /* 헤더 배경색 (연한 하늘색 계열) */
+  --ag-header-background-color: #ed10f5; /* 헤더 배경색 (연한 하늘색 계열) */
   --ag-odd-row-background-color: #fcfcfc; /* 홀수 행 배경색 */
   --ag-even-row-background-color: #ffffff; /* 짝수 행 배경색 */
 

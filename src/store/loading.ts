@@ -6,18 +6,20 @@ export const useLoadingStore = defineStore('loading', () => {
   let loadingCount = 0;
   const isLoading = ref(false)
 
-  function show() {
+  const loadingShow = () => {
     loadingCount++
-// sourcery skip: avoid-function-declarations-in-blocks
     isLoading.value = true
   }
 
-  function hide() {
-    loadingCount--
-    if (loadingCount === 0) {
+  const loadingHide = () => {
+
+    if (loadingCount >= 1) {
+      loadingCount--
+    }
+    if (loadingCount === 0){
       isLoading.value = false
     }
   }
 
-  return { isLoading, show, hide }
+  return { isLoading, loadingShow, loadingHide }
 })
