@@ -7,7 +7,7 @@
       style="width: 100%; height: 500px;"
       class="ag-theme-alpine custom-ag-grid-style"
       :gridOptions="gridOptions"
-      :rowData="rowData.value"
+      :rowData="rowData"
       @grid-ready="onGridReady"
     >
     </ag-grid-vue>
