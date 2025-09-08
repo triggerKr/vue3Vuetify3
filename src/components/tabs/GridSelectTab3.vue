@@ -109,6 +109,7 @@ const defaultColDef: ColDef = {
 
 // 어떤 입력에서 선택했는지 구분하여 반영
 function onSelectedRows(rows: any[], which: 1 | 2) {
+debugger;  
   const text = rows.length ? rows.map(r => `${r.make} ${r.model}`).join(', ') : ''
   if (which === 1) {
     selectedRows1.value = rows
