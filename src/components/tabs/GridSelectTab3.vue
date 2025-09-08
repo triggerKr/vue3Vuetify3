@@ -135,8 +135,6 @@ const content = ref('그리드 셀렉트 박스 탭 정보 불러오는 중...')
 onMounted(() => {
   content.value = '그리드 셀렉트 박스 탭의 내용입니다.'
 })
-</script>
-<style scoped>
 /* Scoped Deep Selector 사용 */
 .small-text-field ::v-deep(.v-input__slot) {
   height: 28px;
