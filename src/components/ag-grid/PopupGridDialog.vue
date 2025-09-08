@@ -92,7 +92,9 @@ const isRowSelectable = (node: IRowNode) => node.data.make !== 'Ford'
 const close = () => { internalDialog.value = false }
 const confirm = () => {
   if (!gridApi.value) return
+debugger;  
   const selected = gridApi.value.getSelectedRows()
+
   emit('select', selected)
   internalDialog.value = false
 }
