@@ -1,3 +1,10 @@
+
+Get-ChildItem "$env:USERPROFILE\.m2\repository" -Filter "_remote.repositories" -Recurse -File | ForEach-Object {
+      $dir = Split-Path $_.FullName
+      $new = Join-Path $dir "xxx_remote.repositories"
+      if (-not (Test-Path $new)) { Rename-Item -Path $_.FullName -NewName $new }
+    }
+
 # Vue 3 + TypeScript + Vite + Vue Router + Pinia + Vuetify
 
 This template should help get you started developing with Vue 3, TypeScript, Vue Router, Pinia and Vuetify in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
