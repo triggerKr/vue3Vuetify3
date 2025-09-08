@@ -135,4 +135,25 @@ const content = ref('그리드 셀렉트 박스 탭 정보 불러오는 중...')
 onMounted(() => {
   content.value = '그리드 셀렉트 박스 탭의 내용입니다.'
 })
-</script>
+</script><style scoped>
+/* Scoped Deep Selector 사용 */
+.small-text-field ::v-deep(.v-input__slot) {
+  height: 28px;
+  min-height: 28px;
+}
+
+.small-text-field ::v-deep(input) {
+  height: 28px;
+  line-height: 28px;
+  font-size: 13px;
+}
+
+.small-text-field ::v-deep(.v-label) {
+  font-size: 12px;
+  transform: translate(0, -6px) scale(0.75); /* 라벨 위로 이동 */
+}
+
+.small-text-field ::v-deep(.v-input__append-inner) {
+  margin-top: 0px; /* 아이콘 중앙 정렬 */
+}
+</style>
