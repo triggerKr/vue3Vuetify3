@@ -12,9 +12,6 @@
   </v-container>
 
   <v-container>
-    <!-- <template #activator="{ props }">
-      <v-btn color="primary" @click="showAGDialog = true">AG Grid 팝업 열기</v-btn>
-    </template> -->
     <v-dialog v-model="showAGDialog">
       <template #activator="{ props }">
         <v-btn v-bind="props" color="primary">AG GRID 팝업 열기</v-btn>
