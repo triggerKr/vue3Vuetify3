@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row align="center" no-gutters>
+    <v-row no-gutters>
       <!-- 첫 번째 텍스트 박스 -->
       <v-col cols="auto">
         <PopupGridDialog
@@ -20,7 +20,7 @@
               clearable
               hide-details
               style="max-width: 300px;min-width:300px;"
-              :append-inner-icon="showAGDialog1 ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+              :append-inner-icon="showAGDialog1 ? 'mdi-arrow-up' : 'mdi-arrow-down'"
               @click:append-inner="showAGDialog1 = !showAGDialog1"
               @click:clear="onClear(1)"
             />
@@ -48,7 +48,7 @@
               clearable
               hide-details
               style="max-width: 300px;min-width:300px;"
-              :append-inner-icon="showAGDialog2 ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+              :append-inner-icon="showAGDialog2 ? 'mdi-human-handsup' : 'mdi-human-handsdown'"
               @click:append-inner="showAGDialog2 = !showAGDialog2"
               @click:clear="onClear(2)"
             />
@@ -138,23 +138,23 @@ onMounted(() => {
 </script>
 <style scoped>
 /* Scoped Deep Selector 사용 */
-.small-text-field ::v-deep(.v-input__slot) {
+.small-text-field :deep(.v-input__slot) {
   height: 28px;
   min-height: 28px;
 }
 
-.small-text-field ::v-deep(input) {
+.small-text-field :deep(input) {
   height: 28px;
   line-height: 28px;
   font-size: 13px;
 }
 
-.small-text-field ::v-deep(.v-label) {
+.small-text-field :deep(.v-label) {
   font-size: 12px;
   transform: translate(0, -6px) scale(0.75); /* 라벨 위로 이동 */
 }
 
-.small-text-field ::v-deep(.v-input__append-inner) {
+.small-text-field :deep(.v-input__append-inner) {
   margin-top: 0px; /* 아이콘 중앙 정렬 */
 }
 </style>
